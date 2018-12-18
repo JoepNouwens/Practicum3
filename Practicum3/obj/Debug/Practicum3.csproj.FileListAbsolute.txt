@@ -1,0 +1,9 @@
+C:\Users\Hickey\source\repos\Practicum3\Practicum3\bin\Debug\Practicum3.exe.config
+C:\Users\Hickey\source\repos\Practicum3\Practicum3\bin\Debug\Practicum3.exe
+C:\Users\Hickey\source\repos\Practicum3\Practicum3\bin\Debug\Practicum3.pdb
+C:\Users\Hickey\source\repos\Practicum3\Practicum3\obj\Debug\Practicum3.csprojAssemblyReference.cache
+C:\Users\Hickey\source\repos\Practicum3\Practicum3\obj\Debug\Practicum3.Properties.Resources.resources
+C:\Users\Hickey\source\repos\Practicum3\Practicum3\obj\Debug\Practicum3.csproj.GenerateResource.cache
+C:\Users\Hickey\source\repos\Practicum3\Practicum3\obj\Debug\Practicum3.csproj.CoreCompileInputs.cache
+C:\Users\Hickey\source\repos\Practicum3\Practicum3\obj\Debug\Practicum3.exe
+C:\Users\Hickey\source\repos\Practicum3\Practicum3\obj\Debug\Practicum3.pdb
