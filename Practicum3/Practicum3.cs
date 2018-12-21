@@ -185,4 +185,12 @@ namespace Reversi
             pea.Graphics.FillEllipse(Brushes.Blue, 105, 192, 30, 30);
         }
     }
+    
+    class Program
+    {
+        public static void Main()
+        {
+            Application.Run(new Reversischerm());
+        }
+    }
 }
