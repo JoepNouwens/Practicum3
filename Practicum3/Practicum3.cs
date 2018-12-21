@@ -18,8 +18,8 @@ namespace Reversi
         int wit = 0, blauw = 1, rood = 2;
         int aantalBlauw = 2, aantalRood = 2;
         int[,] veld;
-        bool geklikt;
-        int beurt;
+        //bool geklikt
+        int beurt = 0;
 
         public Reversischerm()
         {
@@ -54,19 +54,17 @@ namespace Reversi
 
             aanzet = new Label();
             String beurtS;
-            beurt = blauw;
-            if (beurt == blauw)
+            if (beurt % 2 == 0)
             {
                 beurtS = "Blauw";
                 aanzet.Text = beurtS + " is aan zet";
             }
-            else if (beurt == rood)
+            else if (beurt % 2 != 0)
             {
                 beurtS = "Rood";
                 aanzet.Text = beurtS + " is aan zet";
             }
             aanzet.Location = new Point(150, 250);
-
 
             //Panel (grootte verandert als )
             spelgrootteX = 6;
@@ -90,12 +88,12 @@ namespace Reversi
             panel.MouseClick += PlaatsSteen;
             //help.Click += Help;
             nieuwspel.Click += NieuwBord;
-
-            veld = new int[6, 6];
         }
 
         void Startpositie(object o, PaintEventArgs pea)
         {
+            //Mooiere cirkels
+            pea.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
             Pen zwart = new Pen(Color.Black)
             {
@@ -117,9 +115,6 @@ namespace Reversi
             {
                 for (int y = 0; y < spelgrootteY; y++)
                 {
-                    if (veld[x, y] != blauw && veld[x, y] != rood)
-                        veld[x, y] = wit;
-
                     if (veld[x, y] == blauw)
                         pea.Graphics.FillEllipse(Brushes.Blue, x * 50, y * 50, diameter, diameter);
 
@@ -128,56 +123,48 @@ namespace Reversi
                 }
             }
 
-            //Mooiere cirkels
-            pea.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            if (veld[muisX, muisY] == 1)
+                pea.Graphics.FillEllipse(Brushes.Blue, muisX * 50, muisY * 50, diameter, diameter);
+            if (veld[muisX, muisY] == 2)
+                pea.Graphics.FillEllipse(Brushes.Red, muisX * 50, muisY * 50, diameter, diameter);
+            panel.Invalidate();
         }
-
 
         void PlaatsSteen(object sender, MouseEventArgs mea)
         {
-            muisX = (int)(mea.Location.X/50);
-            muisY = (int)(mea.Location.Y/50);
+            muisX = mea.Location.X/50;
+            muisY = mea.Location.Y/50;
 
-            if (veld[muisX, muisY] == wit && beurt == blauw)
+            if (veld[muisX, muisY] == wit && beurt % 2 == 0)
             {
+                veld[muisX, muisY] = blauw;
                 aantalBlauw++;
+                aanzet.Invalidate();
                 blauwstenen.Invalidate();
-                panel.Invalidate();
-                Beurt();
-                geklikt = true;
+                beurt++;
+
             }
-            else if (veld[muisX, muisY] == wit && beurt == rood)
+            else if (veld[muisX, muisY] == wit && beurt % 2 != 0)
             {
+                veld[muisX, muisY] = rood;
                 aantalRood++;
+                aanzet.Invalidate();
                 roodstenen.Invalidate();
-                panel.Invalidate();
-                Beurt();
-                geklikt = true;
+                beurt++;
             }
+            panel.Invalidate();
         }
 
-        void Beurt()
-        {
-            if (beurt == blauw && geklikt == true)
-            {
-                beurt = rood;
-            }
-
-            else if (beurt == rood && geklikt == true)
-            {
-                beurt = blauw;
-            }
-        }
-
-        void Help(object sender, EventArgs e)
+        /*void Help(object sender, EventArgs e)
         {
 
         }
+*/
 
         void NieuwBord(object sender, EventArgs e)
         {
             //Startpositie();
-        }
+        } 
 
         void CirkeltjesNaastAantal(object o, PaintEventArgs pea)
         {
