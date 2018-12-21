@@ -51,29 +51,26 @@ namespace Reversi
             blauwstenen.Text = aantalBlauw.ToString("") + " stenen";
             blauwstenen.Location = new Point(150, 200);
             blauwstenen.ForeColor = Color.Blue;
-            
+
             aanzet = new Label();
             String beurtS;
             beurt = blauw;
             if (beurt == blauw)
             {
                 beurtS = "Blauw";
+                aanzet.Text = beurtS + " is aan zet";
             }
-            if (beurt == rood)
+            else if (beurt == rood)
             {
                 beurtS = "Rood";
+                aanzet.Text = beurtS + " is aan zet";
             }
-            else 
-            {
-                beurtS = "Iets";
-            }
-            aanzet.Text = beurtS + " is aan zet";
             aanzet.Location = new Point(150, 250);
 
 
             //Panel (grootte verandert als )
-            spelgrootteX = 6; 
-            spelgrootteY = 5;
+            spelgrootteX = 6;
+            spelgrootteY = 6;
             xpanelgrootte = spelgrootteX * 50;
             ypanelgrootte = spelgrootteY * 50;
             panel = new Panel();
@@ -97,12 +94,6 @@ namespace Reversi
             veld = new int[6, 6];
         }
 
-        void CirkeltjesNaastAantal(object o, PaintEventArgs pea)
-        {
-            pea.Graphics.FillEllipse(Brushes.Red, 105, 142, 30, 30);
-            pea.Graphics.FillEllipse(Brushes.Blue, 105, 192, 30, 30);
-        }
-
         void Startpositie(object o, PaintEventArgs pea)
         {
 
@@ -117,10 +108,10 @@ namespace Reversi
                 for (int y = 0; y < veld.GetLength(1); y++)
                     pea.Graphics.DrawRectangle(zwart, x * 50, y * 50, 50, 50);
 
-            veld[spelgrootteX/2-1, spelgrootteX/2-1] = blauw;
-            veld[spelgrootteX/2, spelgrootteX/2-1] = rood;
-            veld[spelgrootteX/2, spelgrootteX/2] = blauw;
-            veld[spelgrootteX/2-1, spelgrootteX/2] = rood;
+            veld[spelgrootteX / 2 - 1, spelgrootteX / 2 - 1] = blauw;
+            veld[spelgrootteX / 2, spelgrootteX / 2 - 1] = rood;
+            veld[spelgrootteX / 2, spelgrootteX / 2] = blauw;
+            veld[spelgrootteX / 2 - 1, spelgrootteX / 2] = rood;
 
             for (int x = 0; x < spelgrootteX; x++)
             {
@@ -141,39 +132,27 @@ namespace Reversi
             pea.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
         }
 
-        /* void TekenSteen(object sender, PaintEventArgs pea)
-        {
-            if (beurt == blauw)
-            {
-                pea.Graphics.FillEllipse(Brushes.Blue, arrayX, arrayY, diameter, diameter);
-            }
-            else
-            {
-                pea.Graphics.FillEllipse(Brushes.Red, arrayX, arrayY, diameter, diameter);
-            }
-
-        } */
 
         void PlaatsSteen(object sender, MouseEventArgs mea)
         {
-            muisX = (int)mea.X / 50;
-            muisY = (int)mea.Y / 50;
+            muisX = (int)(mea.Location.X/50);
+            muisY = (int)(mea.Location.Y/50);
 
             if (veld[muisX, muisY] == wit && beurt == blauw)
             {
-                geklikt = true;
                 aantalBlauw++;
                 blauwstenen.Invalidate();
                 panel.Invalidate();
                 Beurt();
+                geklikt = true;
             }
             else if (veld[muisX, muisY] == wit && beurt == rood)
             {
-                geklikt = true;
                 aantalRood++;
                 roodstenen.Invalidate();
                 panel.Invalidate();
                 Beurt();
+                geklikt = true;
             }
         }
 
@@ -184,7 +163,7 @@ namespace Reversi
                 beurt = rood;
             }
 
-            if (beurt == rood && geklikt == true)
+            else if (beurt == rood && geklikt == true)
             {
                 beurt = blauw;
             }
@@ -199,13 +178,11 @@ namespace Reversi
         {
             //Startpositie();
         }
-    }
 
-    class Program
-    {
-        public static void Main()
+        void CirkeltjesNaastAantal(object o, PaintEventArgs pea)
         {
-            Application.Run(new Reversischerm());
+            pea.Graphics.FillEllipse(Brushes.Red, 105, 142, 30, 30);
+            pea.Graphics.FillEllipse(Brushes.Blue, 105, 192, 30, 30);
         }
     }
 }
